@@ -8,6 +8,7 @@ from datetime import datetime
 import json
 import logging
 from pymongo import MongoClient
+import os
 # import motor.motor_asyncio
 
 app = FastAPI(title="RealTime Chat Hub", version="1.0.0")
@@ -25,7 +26,8 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-MONGO_URI="mongodb+srv://kalkeeshjami:6FQPsB6WflpW7GsW@chatroomcluster.jblk7g1.mongodb.net/?retryWrites=true&w=majority&appName=chatroomCluster"
+# MONGO_URI="mongodb+srv://kalkeeshjami:6FQPsB6WflpW7GsW@chatroomcluster.jblk7g1.mongodb.net/?retryWrites=true&w=majority&appName=chatroomCluster"
+MONGO_URI = os.environ["MONGO_URI"]
 client = MongoClient(MONGO_URI)
 db = client["chat_db"]
 messages_collection = db["messages"]
