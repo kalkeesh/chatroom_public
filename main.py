@@ -27,7 +27,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # MONGO_URI="mongodb+srv://kalkeeshjami:6FQPsB6WflpW7GsW@chatroomcluster.jblk7g1.mongodb.net/?retryWrites=true&w=majority&appName=chatroomCluster"
-MONGO_URI = os.environ["MONGO_URI"]
+MONGO_URI = os.getenv("MONGO_URI")
 client = MongoClient(MONGO_URI)
 db = client["chat_db"]
 messages_collection = db["messages"]
@@ -110,4 +110,4 @@ async def http_exception_handler(request, exc):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="192.168.31.39", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=10000)
