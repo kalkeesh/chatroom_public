@@ -25,7 +25,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
+# latest
 # MONGO_URI="mongodb+srv://kalkeeshjami:6FQPsB6WflpW7GsW@chatroomcluster.jblk7g1.mongodb.net/?retryWrites=true&w=majority&appName=chatroomCluster"
 MONGO_URI = os.getenv("MONGO_URI")
 client = MongoClient(MONGO_URI)
