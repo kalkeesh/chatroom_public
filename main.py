@@ -109,9 +109,17 @@ async def get_message_history():
 async def http_exception_handler(request, exc):
     return {"detail": str(exc.detail), "status_code": exc.status_code}
 
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy"}
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=10000)
+    import os
+
+    port = int(os.environ.get("PORT", 10000))  # 10000 is fallback for local dev
+    uvicorn.run(app, host="0.0.0.0", port=port)
+
 
 
 # from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException
