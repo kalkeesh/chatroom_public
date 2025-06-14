@@ -121,8 +121,12 @@
                         </div>
                         <div class="card-body">
                             <div id="login-form" class="mb-4">
-                                <center><input type="text" id="client_id" class="form-control mb-2 w-50" placeholder="Enter your nickname"></center>
-                                <center><button onclick="connectWebSocket()" class="btn btn-orange w-30">Join the Night</button></center>
+
+                                <center>
+                                <input type="text" id="client_id" class="form-control mb-2 w-50" placeholder="Enter your nickname">
+                                <input type="text" id="room" class="form-control mb-2 w-50" placeholder="Enter room name">
+                                <button onclick="connectWebSocket()" class="btn btn-orange mt-2">Join the Night</button>
+                                </center>
                             </div>
 
                             <div id="chat-interface" class="d-none">
@@ -145,22 +149,6 @@
         let clientId;
 
         function connectWebSocket() {
-//            clientId = document.getElementById("client_id").value.trim();
-//            if (!clientId) {
-//                alert("Please enter a valid name.");
-//                return;
-//            }
-
-//            document.getElementById("login-form").classList.add("d-none");
-//            document.getElementById("chat-interface").classList.remove("d-none");
-
-            //const ws_url = `ws://10.70.9.233:8000/ws/${encodeURIComponent(clientId)}`;
-//            const ws_url = `ws://${window.location.host}/ws/${encodeURIComponent(clientId)}`;
-//            socket = new WebSocket(ws_url);
-
-//            socket.onopen = function(event) {
-//                console.log("WebSocket connection established.");
- //           };
             clientId = document.getElementById("client_id").value.trim();
             if (!clientId) {
                 alert("Please enter a valid name.");
@@ -171,7 +159,13 @@
             document.getElementById("chat-interface").classList.remove("d-none");
 
             const protocol = window.location.protocol === "https:" ? "wss" : "ws";
-            const ws_url = `${protocol}://${window.location.host}/ws/${encodeURIComponent(clientId)}`;
+            //const ws_url = `${protocol}://${window.location.host}/ws/${encodeURIComponent(clientId)}`;
+            const room = document.getElementById("room").value.trim();
+            if (!room) {
+            alert("Please enter a room name.");
+            return;
+            }
+            const ws_url = `${protocol}://${window.location.host}/ws/${encodeURIComponent(room)}/${encodeURIComponent(clientId)}`;
             socket = new WebSocket(ws_url);
             socket.onmessage = function(event) {
                 const message = JSON.parse(event.data);

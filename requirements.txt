@@ -7,3 +7,4 @@ requests
 websockets
 motor
 python-dotenv
+pytz
